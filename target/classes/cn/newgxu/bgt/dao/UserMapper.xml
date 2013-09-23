@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.newgxu.bgt.dao.UserMapper">
+	<insert id="addUser" parameterType="cn.newgxu.bgt.model.User">
+		insert into
+		user(uId,userName,passWord,realName,phone,unit,email,access)
+		values(#{uId},#{userName},#{passWord},#{realName},#{phone},#{unit},#{email},#{access})
+	</insert>
+</mapper>
