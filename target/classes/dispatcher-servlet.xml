@@ -16,6 +16,7 @@
 	<mvc:interceptors>
 	    <mvc:interceptor>
 	       <mvc:mapping path="/addQuestion"/>
+	       <mvc:mapping path="/addSolution"/>
 	       <bean class="cn.newgxu.bgt.interceptor.UserInterceptor"/>
 	    </mvc:interceptor>
 	</mvc:interceptors>
@@ -26,6 +27,7 @@
 	<mvc:resources mapping="/assets/img/**" location="/assets/img/" />
 	<mvc:resources mapping="/upload/**" location="/upload/" />
 	<mvc:resources mapping="/editor/**" location="/editor/" />
+	<mvc:resources location="/template/" mapping="/template/**"/>
 	<mvc:default-servlet-handler />
 
 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
