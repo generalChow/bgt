@@ -1,6 +1,8 @@
 
 package cn.newgxu.bgt.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.newgxu.bgt.model.User;
 
 /**
@@ -11,4 +13,5 @@ import cn.newgxu.bgt.model.User;
 public interface UserMapper {
 
 	public void addUser(User user);
+	public User getUserByUserName(@Param("userName")String userName);
 }

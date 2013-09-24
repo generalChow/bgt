@@ -8,4 +8,10 @@
 		user(uId,userName,passWord,realName,phone,unit,email,access)
 		values(#{uId},#{userName},#{passWord},#{realName},#{phone},#{unit},#{email},#{access})
 	</insert>
+
+	<select id="getUserByUserName" resultType="cn.newgxu.bgt.model.User">
+		select uId,userName,passWord,realName,phone,unit,email,access from user
+		where userName = #{userName}
+	</select>
+
 </mapper>

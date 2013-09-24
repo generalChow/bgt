@@ -35,9 +35,15 @@ public class UserController {
 	@RequestMapping(value = "/reg")
 	@ResponseBody
 	public ModelAndView registe(User user,ModelAndView model){
-		System.out.println("yonghuming:"+user.getUserName());
+		//注册之前 先发生http请求论坛查看用户名和密码是否匹配，就可以同步论坛的资料
 		userService.addUser(user);
-		model.addObject("yes", user);
+		model.addObject("result", "yes");
+		return model;
+	}
+	@RequestMapping(value = "/login")
+	@ResponseBody
+	public ModelAndView login(User user,ModelAndView model){
+		model.addObject("result", userService.login(user));
 		return model;
 	}
 	

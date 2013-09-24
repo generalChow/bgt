@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.newgxu.bgt.dao.QuestionMapper">
+
+	<insert id="addQuestion" parameterType="cn.newgxu.bgt.model.Question">
+		insert into
+		question(qId,title,context,addTime,solution)
+		values(#{qId},#{title},#{context},#{addTime},#{solution})
+	</insert>
+
+</mapper>
