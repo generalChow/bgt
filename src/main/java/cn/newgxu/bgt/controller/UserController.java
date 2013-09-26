@@ -16,8 +16,7 @@ import cn.newgxu.bgt.util.HttpUtil;
 
 /**
  * @author 周大帅
- * @email 463734522@qq.com
- * 2013年9月24日
+ * @email 463734522@qq.com 2013年9月24日
  */
 @Controller
 public class UserController {
@@ -32,34 +31,37 @@ public class UserController {
 	public void setLogger(Logger logger) {
 		this.logger = logger;
 	}
-	
+
 	@RequestMapping(value = "/reg")
 	@ResponseBody
-	public ModelAndView registe(User user,ModelAndView model){
-		//注册之前 先发生http请求论坛查看用户名和密码是否匹配，就可以同步论坛的资料
+	public ModelAndView registe(User user, ModelAndView model) {
+		// 注册之前 先发生http请求论坛查看用户名和密码是否匹配，就可以同步论坛的资料
 		try {
 			HttpUtil http = new HttpUtil();
-			http.setUrlStr("http://bbs.newgxu.cn/checkAccout.yws");
-			http.send_url("123", "34567");
-			System.out.println(http.getResponse_content());
-			
+			String url ="http://bbs.newgxu.cn/checkAccout.yws?username="
+					+ user.getUserName() + "&passWord=" + user.getPassWord();
+			http.setUrlStr(url);
+			 http.send_url();
+			logger.info(url);
+			logger.info(http.getResponse_content());
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
 			model.addObject("result", "no");
 			return model;
 		}
-	
-	
-	//	userService.addUser(user);
-		//model.addObject("result", "yes");
+
+		// userService.addUser(user);
+		// model.addObject("result", "yes");
 		return model;
 	}
+
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public ModelAndView login(User user,ModelAndView model){
+	public ModelAndView login(User user, ModelAndView model) {
 		model.addObject("result", userService.login(user));
 		return model;
 	}
-	
+
 }

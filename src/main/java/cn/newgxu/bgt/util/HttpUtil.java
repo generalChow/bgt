@@ -29,15 +29,15 @@ public class HttpUtil {
     private  void setResponse_content(String response_content) {
         this.response_content = response_content;
     }
-    public void send_url(String u,String p){
+    public void send_url(){
         try{
             url = new URL(urlStr);
             url_con=(HttpURLConnection)url.openConnection();
             url_con.setRequestMethod("GET");
             url_con.setDoOutput(true);
-            String param="username="+u+"&passWord="+p;
+           // String param="username="+u+"&passWord="+p;
            
-            url_con.getOutputStream().write(param.getBytes());
+            //url_con.getOutputStream().write(param.getBytes());
             url_con.getOutputStream().flush();
             url_con.getOutputStream().close();
             InputStream in= url_con.getInputStream();
