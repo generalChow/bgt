@@ -1,26 +1,21 @@
+package cn.newgxu.bgt.model.entity;
 
-package cn.newgxu.bgt.model;
+import cn.newgxu.bgt.model.Solution;
 
 /**
  * @author 周大帅
  * @email 463734522@qq.com
  * 2013年9月24日
  */
-public class User {
+public class Solutioner extends Solution{
 
-	private int uId;
-	private String nick;
 	private String userName;
-	private String passWord;
 	private String realName;
 	private String phone;
 	private String unit;
 	private String email;
-	private String access;
+	private String nick;
 	private String sex;
-	
-	
-	
 	
 	public String getSex() {
 		return sex;
@@ -34,23 +29,11 @@ public class User {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	public int getuId() {
-		return uId;
-	}
-	public void setuId(int uId) {
-		this.uId = uId;
-	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	public String getPassWord() {
-		return passWord;
-	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
 	}
 	public String getRealName() {
 		return realName;
@@ -76,12 +59,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getAccess() {
-		return access;
-	}
-	public void setAccess(String access) {
-		this.access = access;
-	}
+	
 	
 	
 }

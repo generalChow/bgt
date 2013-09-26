@@ -43,11 +43,11 @@ public class HttpUtil {
             InputStream in= url_con.getInputStream();
             BufferedReader   rd = new BufferedReader(new InputStreamReader(in));
             StringBuilder tempStr=new StringBuilder();
-           System.out.println(rd.read());
+          
             while(rd.read()!=-1){
-            	System.out.println("1:"+rd.read());
+            	
                 tempStr.append(rd.readLine());
-                System.out.println("2:"+rd.read());
+                
                 
             }
            setResponse_content(new String(tempStr));

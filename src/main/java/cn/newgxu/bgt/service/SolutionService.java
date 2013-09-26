@@ -1,6 +1,9 @@
 package cn.newgxu.bgt.service;
 
+import java.util.List;
+
 import cn.newgxu.bgt.model.Solution;
+import cn.newgxu.bgt.model.entity.Solutioner;
 
 /**
  * @author 周大帅
@@ -10,4 +13,5 @@ import cn.newgxu.bgt.model.Solution;
 public interface SolutionService {
 
 	public void addSolution(Solution s);
+	public List<Solutioner> getSolutionByQIdAndIndex(int qId, String index,int n);
 }

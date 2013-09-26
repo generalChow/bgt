@@ -10,4 +10,5 @@ import cn.newgxu.bgt.model.Question;
  */
 public interface QuestionService {
 	public void addQuestion(Question question);
+	public void setQuestionGood(int qId);
 }

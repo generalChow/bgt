@@ -44,6 +44,10 @@ public class UserController {
 			 http.send_url();
 			logger.info(url);
 			logger.info(http.getResponse_content());
+			if(http.getResponse_content().equals("esult\":\"false\"}")){
+				model.addObject("result", "no");
+				return model;
+			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -52,8 +56,8 @@ public class UserController {
 			return model;
 		}
 
-		// userService.addUser(user);
-		// model.addObject("result", "yes");
+		 userService.addUser(user);
+		 model.addObject("result", "yes");
 		return model;
 	}
 

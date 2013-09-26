@@ -10,4 +10,8 @@
 		values(#{qId},#{title},#{context},#{addTime},#{solution})
 	</insert>
 
+	<update id="setQuestionGood">
+		update question set solution = "good" where qId = #{qId}
+	</update>
+
 </mapper>

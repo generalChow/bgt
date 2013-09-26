@@ -5,13 +5,15 @@
 <mapper namespace="cn.newgxu.bgt.dao.UserMapper">
 	<insert id="addUser" parameterType="cn.newgxu.bgt.model.User">
 		insert into
-		user(uId,userName,passWord,realName,phone,unit,email,access)
-		values(#{uId},#{userName},#{passWord},#{realName},#{phone},#{unit},#{email},#{access})
+		user(uId,userName,passWord,realName,phone,unit,email,access,sex,nick)
+		values(#{uId},#{userName},#{passWord},#{realName},#{phone},#{unit},#{email},#{access},#{sex},#{nick})
 	</insert>
 
 	<select id="getUserByUserName" resultType="cn.newgxu.bgt.model.User">
-		select uId,userName,passWord,realName,phone,unit,email,access from user
-		where userName = #{userName}
+		select
+		uId,userName,passWord,realName,phone,unit,email,access from user
+		where
+		userName = #{userName}
 	</select>
 
 </mapper>

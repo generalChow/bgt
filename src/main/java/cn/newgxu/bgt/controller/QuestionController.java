@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,5 +31,12 @@ public class QuestionController {
 	public ModelAndView addQuestion(Question q,ModelAndView model){
 		questionService.addQuestion(q);
 		return model;
+	}
+	@RequestMapping("/setQuestionGood/{qId}")
+	@ResponseBody
+	public ModelAndView setQuestionGood(@PathVariable int qId,ModelAndView m){
+		questionService.setQuestionGood(qId);
+	    m.addObject("result", "yes");
+		return m;
 	}
 }

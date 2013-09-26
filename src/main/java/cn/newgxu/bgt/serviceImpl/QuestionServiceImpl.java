@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import cn.newgxu.bgt.dao.QuestionMapper;
 import cn.newgxu.bgt.model.Question;
 import cn.newgxu.bgt.service.QuestionService;
+import cn.newgxu.bgt.util.TimeUitl;
 
 /**
  * @author 周大帅
@@ -26,7 +27,12 @@ public class QuestionServiceImpl implements QuestionService{
 	 */
 	public void addQuestion(Question question) {
 		// TODO Auto-generated method stub
+		question.setSolution("no");
+		question.setAddTime(String.valueOf(TimeUitl.getCurrentTime()));
 		questionMapper.addQuestion(question);
 	}
 
+	public void setQuestionGood(int qId){
+		questionMapper.setQuestionGood(qId);
+	}
 }

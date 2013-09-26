@@ -8,4 +8,12 @@
 		Solution(sId,qId,uId,addTime,context)
 		values(#{sId},#{qId},#{uId},#{addTime},#{context})
 	</insert>
+
+	<select id="getSolutionByQIdAndIndex" resultType="cn.newgxu.bgt.model.entity.Solutioner">
+		select
+		sId,qId,solution.uId,addTime,context,nick,sex,userName,realName,phone,unit,email
+		from
+		solution,user where qId = #{qId} and user.uId = solution.uId and
+		solution.addTime &lt; #{index} order  by sId desc limit #{n} 
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package cn.newgxu.bgt.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.newgxu.bgt.model.Question;
 
 /**
@@ -10,4 +12,5 @@ import cn.newgxu.bgt.model.Question;
 public interface QuestionMapper {
 
 	public void addQuestion(Question question);
+	public void setQuestionGood(@Param("qId") int qId);
 }
