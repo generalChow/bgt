@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.newgxu.bgt.model.User;
 import cn.newgxu.bgt.service.UserService;
+import cn.newgxu.bgt.util.HttpUtil;
 
 /**
  * @author 周大帅
@@ -36,8 +37,22 @@ public class UserController {
 	@ResponseBody
 	public ModelAndView registe(User user,ModelAndView model){
 		//注册之前 先发生http请求论坛查看用户名和密码是否匹配，就可以同步论坛的资料
-		userService.addUser(user);
-		model.addObject("result", "yes");
+		try {
+			HttpUtil http = new HttpUtil();
+			http.setUrlStr("http://bbs.newgxu.cn/checkAccout.yws");
+			http.send_url("123", "34567");
+			System.out.println(http.getResponse_content());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			model.addObject("result", "no");
+			return model;
+		}
+	
+	
+	//	userService.addUser(user);
+		//model.addObject("result", "yes");
 		return model;
 	}
 	@RequestMapping(value = "/login")
