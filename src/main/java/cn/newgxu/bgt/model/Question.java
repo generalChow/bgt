@@ -12,6 +12,21 @@ public class Question {
 	private String context;
 	private String addTime;
 	private String solution;//yes or no
+	private int attention;
+	private int uId;
+	
+	public int getuId() {
+		return uId;
+	}
+	public void setuId(int uId) {
+		this.uId = uId;
+	}
+	public int getAttention() {
+		return attention;
+	}
+	public void setAttention(int attention) {
+		this.attention = attention;
+	}
 	public int getqId() {
 		return qId;
 	}

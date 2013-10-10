@@ -1,7 +1,10 @@
 package cn.newgxu.bgt.service;
 
 
+import java.util.List;
+
 import cn.newgxu.bgt.model.Question;
+import cn.newgxu.bgt.model.entity.QuestionModel;
 
 /**
  * @author 周大帅
@@ -11,4 +14,5 @@ import cn.newgxu.bgt.model.Question;
 public interface QuestionService {
 	public void addQuestion(Question question);
 	public void setQuestionGood(int qId);
+	public List<QuestionModel> getAttentionQ(int n,int m);
 }

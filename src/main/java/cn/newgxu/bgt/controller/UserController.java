@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.newgxu.bgt.common.Constant;
 import cn.newgxu.bgt.model.User;
 import cn.newgxu.bgt.service.UserService;
 import cn.newgxu.bgt.util.HttpUtil;
+import cn.newgxu.bgt.util.SessionUtil;
 
 /**
  * @author 周大帅
@@ -38,13 +40,13 @@ public class UserController {
 		// 注册之前 先发生http请求论坛查看用户名和密码是否匹配，就可以同步论坛的资料
 		try {
 			HttpUtil http = new HttpUtil();
-			String url ="http://bbs.newgxu.cn/checkAccout.yws?username="
+			String url = "http://bbs.newgxu.cn/checkAccout.yws?username="
 					+ user.getUserName() + "&passWord=" + user.getPassWord();
 			http.setUrlStr(url);
-			 http.send_url();
+			http.send_url();
 			logger.info(url);
 			logger.info(http.getResponse_content());
-			if(http.getResponse_content().equals("esult\":\"false\"}")){
+			if (http.getResponse_content().equals("esult\":\"false\"}")) {
 				model.addObject("result", "no");
 				return model;
 			}
@@ -56,8 +58,8 @@ public class UserController {
 			return model;
 		}
 
-		 userService.addUser(user);
-		 model.addObject("result", "yes");
+		userService.addUser(user);
+		model.addObject("result", "yes");
 		return model;
 	}
 
@@ -65,6 +67,23 @@ public class UserController {
 	@ResponseBody
 	public ModelAndView login(User user, ModelAndView model) {
 		model.addObject("result", userService.login(user));
+		model.addObject("user",
+				SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER));
+		return model;
+	}
+
+	@RequestMapping(value = "/getUserByS")
+	@ResponseBody
+	public ModelAndView getUserInfoBySession(ModelAndView model) {
+		User user = (User) SessionUtil
+				.getAttributeFromSessionByKey(Constant.SESSION_USER);
+		if (user != null) {
+			model.addObject("result", true);
+			model.addObject("user", user);
+		}else{
+			model.addObject("result", false);
+		}
+
 		return model;
 	}
 

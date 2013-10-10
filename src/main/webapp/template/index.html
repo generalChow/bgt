@@ -1,1 +1,256 @@
-yes
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>雨无声 &middot; 曝光台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/template/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+    <link href="/template/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/template/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/template/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/template/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="/template/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="/template/assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active" id="loginButton"><a href="#loginModel" data-toggle="modal">登录</a></li>
+          <li class="active" id="postButton"><a href="#postModel" data-toggle="modal" onclick="return post()">我要曝光</a></li>
+        </ul>
+        <h3 class="muted">曝光台</h3>
+        <p id="userInfoText"></p>
+      </div>
+
+      <hr>
+
+      <div class="jumbotron">
+        <div class="input-append">
+        <form action="/" onsubmit="return searchQ()">
+        <input class="span4" id="appendedInputButton" placeholder="搜索...." type="text">
+        </form>
+        </div>
+        <hr>
+         <!-- Tabs
+        ================================================== -->
+        <section id="tabs">
+        
+
+
+        
+          <div class="bs-docs-example">
+            <ul id="myTab" class="nav nav-tabs">
+             
+              <li class="dropdown active">
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown">最高曝光<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#dropdown11" data-toggle="tab">狗洞坑人问题</a></li>
+                  <li><a href="#dropdown12" data-toggle="tab">很多的排队问题还有乱扔垃圾的问题</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown">已解决(月)<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#dropdown21" data-toggle="tab">狗洞坑人问题</a></li>
+                  <li><a href="#dropdown22" data-toggle="tab">很多的排队问题还有乱扔垃圾的问题</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              
+              <div class="tab-pane fade in active" id="dropdown11">
+                <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+              </div>
+              <div class="tab-pane fade" id="dropdown12">
+                <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+              </div>
+              <div class="tab-pane fade" id="dropdown21">
+                <p>最近狗洞问题很严重，男生泡妹子，大家约炮问题</p>
+              </div>
+              <div class="tab-pane fade" id="dropdown22">
+                <p>哈哈Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+              </div>
+            </div>
+          </div>
+
+
+         
+        
+      </div>
+
+      <hr>
+
+      <div class="row-fluid marketing">
+        <div class="span12">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; Company 2013</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!--model -->
+    <div id="loginModel" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">登录雨无声曝光台</h3>
+  </div>
+  <div class="modal-body">
+    <form class="offset1" onsubmit="return login()">
+  <fieldset>
+    <label>账号</label>
+    <input type="text" id="userName" placeholder="Type your userName…" name="userName">
+    <label>密码</label>
+    <input type="passWord" id="passWord" placeholder="Type passWord…" name="passWord">
+    </br>
+    <button type="submit" class="btn btn-primary">登录</button>
+    <span class="help-block"><span  class="text-warning">如果你没有登录账号，请在框里面输入您的论坛账号和密码并且</span><strong><a href="#" onclick="return reg()">请用点击此处同步</a></strong></span>
+  </fieldset>
+</form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭窗口</button>
+    
+  </div>
+</div>
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/template/assets/js/jquery.js"></script>
+    <script src="/template/assets/js/bootstrap.min.js"></script>
+  </body>
+  <script type="text/javascript">
+   isLogin = false;
+   function searchQ() {
+     		// body...
+     		alert("ss");
+     		return false;
+     	}  	
+
+  function reg() {
+  	// body...
+  	alert("reg");
+  	return false;
+  }
+
+  function login() {
+  	// body...
+  	$.ajax({
+   type: "POST",
+   url: "/login",
+   data: "userName="+$("#userName").val()+"&passWord="+$("#passWord").val(),
+   success: function(msg){
+     if (msg.modelMap.result===true) {
+       $("#loginButton").css("display","none");
+       $('#loginModel').modal('hide');
+       setUserInfo(msg.modelMap.user);
+     } else{
+     alert("您的用户名和密码不匹配，或者你的账号没有同步");
+     };
+   }
+});
+return false;
+  }
+
+  function setUserInfo(user) {
+  	// body...
+  	isLogin=true;
+  	str = "<strong class=\"text-info\"><a href=\"#\">"+user.nick+"</a></strong>,欢迎你来曝光";
+  	alert(str);
+  	$("#userInfoText").prepend(str);
+  }
+
+  function post() {
+  	// body...
+  	if (isLogin) {alert("已经登录");} else{alert("没有登录");};
+  	return false;
+  }
+  function  getUserInfo() {
+  	// body...
+  	$.ajax({
+   type: "GET",
+   url: "/getUserByS",
+   success: function(msg){
+       if (msg.modelMap.result===true) {
+       $("#loginButton").css("display","none");
+       $('#loginModel').modal('hide');
+       setUserInfo(msg.modelMap.user);
+     } 
+   }
+});
+  }
+  window.onload = function(){ 
+    // 在这里写你的代码...
+    getUserInfo();
+    
+}
+  </script>
+</html>

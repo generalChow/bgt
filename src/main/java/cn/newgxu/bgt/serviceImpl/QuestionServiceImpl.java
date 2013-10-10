@@ -1,14 +1,23 @@
 package cn.newgxu.bgt.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import cn.newgxu.bgt.common.Constant;
 import cn.newgxu.bgt.dao.QuestionMapper;
 import cn.newgxu.bgt.model.Question;
+import cn.newgxu.bgt.model.User;
+import cn.newgxu.bgt.model.entity.QuestionModel;
 import cn.newgxu.bgt.service.QuestionService;
+import cn.newgxu.bgt.util.SessionUtil;
 import cn.newgxu.bgt.util.TimeUitl;
 
 /**
@@ -29,10 +38,28 @@ public class QuestionServiceImpl implements QuestionService{
 		// TODO Auto-generated method stub
 		question.setSolution("no");
 		question.setAddTime(String.valueOf(TimeUitl.getCurrentTime()));
+		question.setAttention(0);
+		User user = (User) SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER);
+		question.setuId(user.getuId());
 		questionMapper.addQuestion(question);
 	}
 
 	public void setQuestionGood(int qId){
 		questionMapper.setQuestionGood(qId);
+	}
+	/**
+	 * 从倒数n个question中选出关注度最高的m个
+	 * @param n
+	 * @param m
+	 * @return
+	 */
+	public List<QuestionModel> getAttentionQ(int n,int m){
+		Map<String, Object> params = new HashMap<String, Object>();
+		List<String> qIds = new ArrayList<String>();
+		qIds = questionMapper.getQIdsDesc(n);
+		//System.out.println("changdu:"+qIds.size());
+		params.put("n", m);
+		params.put("list", qIds);
+		return questionMapper.getAttenTionQuestion(params);
 	}
 }

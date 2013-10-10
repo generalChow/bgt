@@ -39,4 +39,10 @@ public class QuestionController {
 	    m.addObject("result", "yes");
 		return m;
 	}
+	@RequestMapping("/getAQ/{n}/{m}")
+	@ResponseBody
+	public ModelAndView getAttentionQ(@PathVariable int n,@PathVariable int m,ModelAndView model){
+		model.addObject("questions", questionService.getAttentionQ(n, m));
+		return model;
+	}
 }

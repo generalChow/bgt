@@ -6,12 +6,28 @@
 
 	<insert id="addQuestion" parameterType="cn.newgxu.bgt.model.Question">
 		insert into
-		question(qId,title,context,addTime,solution)
-		values(#{qId},#{title},#{context},#{addTime},#{solution})
+		question(qId,title,context,addTime,solution,attention,uId)
+		values(#{qId},#{title},#{context},#{addTime},#{solution},#{attention},#{uId})
 	</insert>
 
 	<update id="setQuestionGood">
-		update question set solution = "good" where qId = #{qId}
+		update question set solution = "good" where qId =
+		#{qId}
 	</update>
+
+	<select id="getAttenTionQuestion" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
+		select
+		qId,question.uId,title,context,addTime,solution,attention ,nick
+		from
+		question,user
+		where qId in
+		<foreach collection="list" index="qId" item="qId" open="("
+			separator="," close=")">#{qId}</foreach>
+		and question.uId = user.uId order by attention desc limit #{n}
+	</select>
+	
+	<select id="getQIdsDesc" resultType="java.lang.String">
+	  select qId from question  order by qId desc limit #{m}
+	</select>
 
 </mapper>

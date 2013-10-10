@@ -11,7 +11,7 @@
 
 	<select id="getUserByUserName" resultType="cn.newgxu.bgt.model.User">
 		select
-		uId,userName,passWord,realName,phone,unit,email,access from user
+		uId,userName,passWord,realName,phone,unit,email,access,sex,nick from user
 		where
 		userName = #{userName}
 	</select>
