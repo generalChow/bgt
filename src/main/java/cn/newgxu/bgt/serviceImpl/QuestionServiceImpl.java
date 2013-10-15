@@ -10,9 +10,12 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.newgxu.bgt.common.Constant;
 import cn.newgxu.bgt.dao.QuestionMapper;
+import cn.newgxu.bgt.model.Attention;
 import cn.newgxu.bgt.model.Question;
 import cn.newgxu.bgt.model.User;
 import cn.newgxu.bgt.model.entity.QuestionModel;
@@ -34,6 +37,7 @@ public class QuestionServiceImpl implements QuestionService{
 	/* (non-Javadoc)
 	 * @see cn.newgxu.bgt.service.QuestionService#addQuestion(cn.newgxu.bgt.model.Question)
 	 */
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void addQuestion(Question question) {
 		// TODO Auto-generated method stub
 		question.setSolution("no");
@@ -44,6 +48,7 @@ public class QuestionServiceImpl implements QuestionService{
 		questionMapper.addQuestion(question);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void setQuestionGood(int qId){
 		questionMapper.setQuestionGood(qId);
 	}
@@ -53,6 +58,7 @@ public class QuestionServiceImpl implements QuestionService{
 	 * @param m
 	 * @return
 	 */
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public List<QuestionModel> getAttentionQ(int n,int m){
 		Map<String, Object> params = new HashMap<String, Object>();
 		List<String> qIds = new ArrayList<String>();
@@ -62,4 +68,32 @@ public class QuestionServiceImpl implements QuestionService{
 		params.put("list", qIds);
 		return questionMapper.getAttenTionQuestion(params);
 	}
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public List<QuestionModel> getLastQ(int m,String solution,String time){
+		return questionMapper.getLastQ(m, solution,time);
+	}
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public QuestionModel getQByQId(int qId){
+		return questionMapper.getQByQId(qId);
+	}
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public boolean updateA(int qId,int attention){
+		User user = (User) SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER);
+		System.out.println(questionMapper.getAIdByQIdAndUId(qId, user.getuId()));
+		if(questionMapper.getAIdByQIdAndUId(qId, user.getuId())!=null){
+			return false;
+		}else{
+		Attention a = new Attention(qId, user.getuId(),"no");
+		questionMapper.addAttention(a);
+		questionMapper.updateAttention(qId, attention);
+		return true;
+		}
+	}
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public List<QuestionModel> getMyQuestions(String time,int n){
+		User user = (User) SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER);
+		return questionMapper.getMyQuestions(user.getuId(), time, n);
+	}
+	
+	
 }

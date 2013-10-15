@@ -42,12 +42,18 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void addUser(User user) {
 		// TODO Auto-generated method stub
-		System.out.println("输出到这里了");
+		User u = userMapper.getUserByUserName(user.getUserName());
+		if(u==null){
+		logger.info("同步ing");
 		user.setAccess("1");
 		user.setPassWord(Md5.cell32(user.getPassWord()));
 		userMapper.addUser(user);
 		SessionUtil.setAttributeForSession(Constant.SESSION_USER,
 				userMapper.getUserByUserName(user.getUserName()));
+		}else{
+			//System.out.println("同步过了");
+			logger.info("已经同步过了");
+		}
 	}
 
 	/* (non-Javadoc)
@@ -62,5 +68,9 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+	
+	public User getUserByUserName(String userName){
+		return userMapper.getUserByUserName(userName);
 	}
 }

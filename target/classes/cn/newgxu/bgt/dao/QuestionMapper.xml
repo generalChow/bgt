@@ -17,7 +17,8 @@
 
 	<select id="getAttenTionQuestion" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
 		select
-		qId,question.uId,title,context,addTime,solution,attention ,nick
+		qId,question.uId,title,context,addTime,solution,attention
+		,nick,userName
 		from
 		question,user
 		where qId in
@@ -25,9 +26,40 @@
 			separator="," close=")">#{qId}</foreach>
 		and question.uId = user.uId order by attention desc limit #{n}
 	</select>
-	
+
 	<select id="getQIdsDesc" resultType="java.lang.String">
-	  select qId from question  order by qId desc limit #{m}
+		select qId from question order by qId desc limit #{m}
 	</select>
 
+	<select id="getLastQ" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
+		select
+		qId,question.uId,title,context,addTime,solution,attention
+		,nick,userName
+		from
+		question,user where solution =#{solution} and
+		question.addTime &lt;#{time} order by qId desc limit #{m}
+	</select>
+
+	<select id="getQByQId" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
+		select
+		qId,question.uId,title,context,addTime,solution,attention
+		,nick,userName
+		from
+		question,user where qId = #{qId}
+	</select>
+	<update id="updateAttention">
+		update question set attention = #{attention} where qId = #{qId}
+	</update>
+	<insert id="addAttention" parameterType="cn.newgxu.bgt.model.Attention">
+		insert into attention(qId,uId,state) values(#{qId},#{uId},#{state})
+	</insert>
+	<select id="getAIdByQIdAndUId" resultType="java.lang.String">
+		select aId from attention where qId=#{qId} and uId=#{uId}
+	</select>
+	<select id="getMyQuestions" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
+		select title,addTime,attention,qId from question where uId = #{uId} and addTime
+		&lt;#{time} order by qId desc limit #{n}
+	</select>
+	
+	
 </mapper>

@@ -45,4 +45,34 @@ public class QuestionController {
 		model.addObject("questions", questionService.getAttentionQ(n, m));
 		return model;
 	}
+	
+	@RequestMapping("/getLastQ/{solution}/{time}/{m}")
+	@ResponseBody
+	public ModelAndView getLastQ(@PathVariable String time,@PathVariable String solution,@PathVariable int m,ModelAndView model){
+		model.addObject("questions", questionService.getLastQ(m, solution,time));
+		return model;
+	}
+	
+	@RequestMapping("/getQByQ/{qId}")
+	@ResponseBody
+	public ModelAndView getQByQId(@PathVariable int qId,ModelAndView model){
+		model.addObject("question", questionService.getQByQId(qId));
+		return model;
+	}
+	
+	@RequestMapping("/updateA/{qId}/{attention}")
+	@ResponseBody
+	public ModelAndView updateA(@PathVariable int qId,@PathVariable int attention,ModelAndView model){
+		model.addObject("result", questionService.updateA(qId, (attention+1)));
+		return model;
+	}
+	
+	@RequestMapping("/getMyQuestions/{n}/{time}")
+	@ResponseBody
+	public ModelAndView getMyQuestions(@PathVariable int n,@PathVariable String time,ModelAndView model){
+		model.addObject("questions", questionService.getMyQuestions(time, n));
+		return model;
+	}
+	
+	
 }

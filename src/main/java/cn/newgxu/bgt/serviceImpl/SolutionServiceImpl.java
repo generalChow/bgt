@@ -48,8 +48,8 @@ public class SolutionServiceImpl implements SolutionService {
 		solutionMapper.addSolution(s);
 	}
 	@Transactional(propagation=Propagation.REQUIRED,readOnly=true)
-	public List<Solutioner> getSolutionByQIdAndIndex(int qId, String index,int n){
-		return solutionMapper.getSolutionByQIdAndIndex(qId, index, n);
+	public List<Solutioner> getSolutionByQIdAndIndex(int qId, String time,int n){
+		return solutionMapper.getSolutionByQIdAndIndex(qId, time, n);
 	}
 
 }

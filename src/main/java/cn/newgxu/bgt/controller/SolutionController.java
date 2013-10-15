@@ -35,11 +35,11 @@ public class SolutionController {
 		return m;
 	}
 
-	@RequestMapping("/getSolutions/{qId}/{n}/{index}")
+	@RequestMapping("/getSolutions/{qId}/{n}/{time}")
 	@ResponseBody
 	public ModelAndView getSolutionByQIN(@PathVariable int qId,
-			@PathVariable int n, @PathVariable String index, ModelAndView m) {
-		List<Solutioner> solutionList =	solutionService.getSolutionByQIdAndIndex(qId, index, n);
+			@PathVariable int n, @PathVariable String time, ModelAndView m) {
+		List<Solutioner> solutionList =	solutionService.getSolutionByQIdAndIndex(qId, time, n);
 		m.addObject("sulotionList", solutionList);
 		return m;
 	}

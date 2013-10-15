@@ -24,5 +24,5 @@ public interface SolutionMapper {
 	 * @return
 	 */
 	public List<Solutioner> getSolutionByQIdAndIndex(@Param("qId") int qId,
-			@Param("index") String index, @Param("n") int n);
+			@Param("time") String time, @Param("n") int n);
 }

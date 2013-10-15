@@ -9,6 +9,16 @@ import cn.newgxu.bgt.model.Question;
  */
 public class QuestionModel extends Question {
 	private String nick;
+	private String userName;
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public String getNick() {
 		return nick;

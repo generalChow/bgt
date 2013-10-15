@@ -12,4 +12,5 @@ public interface UserService {
 
 	public void addUser(User user);
 	public boolean login(User user);
+	public User getUserByUserName(String userName);
 }

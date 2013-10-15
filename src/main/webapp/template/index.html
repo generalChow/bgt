@@ -95,9 +95,11 @@
              
               <li class="dropdown active">
                 <a href="#" class="dropdown-toggle " data-toggle="dropdown">最高曝光<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#dropdown11" data-toggle="tab">狗洞坑人问题</a></li>
-                  <li><a href="#dropdown12" data-toggle="tab">很多的排队问题还有乱扔垃圾的问题</a></li>
+                <ul class="dropdown-menu" id="hightBaoguang">
+                 
+                 <!--
+                 <li><a href="#dropdown10" data-toggle="tab" id="firstOneHight"></a></li>
+                  <li><a href="#dropdown12" data-toggle="tab">很多的排队问题还有乱扔垃圾的问题</a></li>-->
                 </ul>
               </li>
               <li class="dropdown">
@@ -110,12 +112,10 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               
-              <div class="tab-pane fade in active" id="dropdown11">
-                <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-              </div>
-              <div class="tab-pane fade" id="dropdown12">
-                <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-              </div>
+             <!-- <div class="tab-pane fade in active" id="dropdown10">
+              
+              </div>-->
+              
               <div class="tab-pane fade" id="dropdown21">
                 <p>最近狗洞问题很严重，男生泡妹子，大家约炮问题</p>
               </div>
@@ -133,15 +133,11 @@
       <hr>
 
       <div class="row-fluid marketing">
-        <div class="span12">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <div class="span12" id="newBaoguang">
+          
+        </div>
+        <div >
+          <button class="btn btn-info" id="getMoreLastQB"onclick="return getLastQ()"><strong>获取更多</strong></button>
         </div>
 
         
@@ -170,13 +166,109 @@
     <input type="passWord" id="passWord" placeholder="Type passWord…" name="passWord">
     </br>
     <button type="submit" class="btn btn-primary">登录</button>
-    <span class="help-block"><span  class="text-warning">如果你没有登录账号，请在框里面输入您的论坛账号和密码并且</span><strong><a href="#" onclick="return reg()">请用点击此处同步</a></strong></span>
+    <span class="help-block"><span  class="text-warning">如果你没有登录账号，请在框里面输入您的论坛账号和密码并且</span><strong><a href="#" onclick="return regShow()">请用点击此处同步</a></strong></span>
+    <div style="display:none;" id="regShowModal">
+       <label>真实姓名</label>
+    <input type="text" id="realName" placeholder="Type your realName…" name="realName">
+    <label>邮箱</label>
+    <input type="text" id="email" placeholder="Type email…" name="email">
+    <label>昵称</label>
+    <input type="text" id="nick" placeholder="Type nick…" name="nick">
+    <label>电话</label>
+    <input type="text" id="phone" placeholder="Type phone…" name="phone">
+    <button type="submit" class="btn btn-primary" onclick="return reg()">注册</button>
+    </div>
   </fieldset>
 </form>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭窗口</button>
     
+  </div>
+</div>
+
+<div id="UserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">个人信息</h3>
+  </div>
+  <div class="modal-body">
+  <table class="table table-striped">
+
+    <tr class="success">
+    <td>姓名</td>
+    <td id="name">TB - Monthly</td>
+  </tr>
+  <!--<tr class="error">
+    <td>电话</td>
+    <td id="phone">18078190026</td>
+  </tr>-->
+  <tr class="info">
+    <td>邮件</td>
+    <td id="email">18078190026@qq.com</td>
+  </tr>
+
+</table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  
+  </div>
+</div>
+
+<div id="postModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">曝光！</h3>
+  </div>
+  <div class="modal-body">
+  <form onsubmit="return postDo()">
+  <div class="control-group">
+    <label class="control-label"  for="inputEmail">标题(20字以内)</label>
+    <div class="controls">
+      <input type="text" class="span4" id="title"  placeholder="简明扼要的说明">
+    </div>
+  </div>
+    <textarea rows="10" id="context" class="span4"></textarea>
+    </br>
+    <button class="btn btn-info" type="submit">提交</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    
+  </div>
+</div>
+
+<div id="showSingleQ" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="singleQTitle"></h3>
+  </div>
+  <div class="modal-body" >
+  <div id = "singleQContext" ></div>
+  <hr>
+   <div><textarea rows="4" class="span4" id="solutionContext"></textarea></br><button class="btn btn-primary" onclick="addSolution()">发表观点</button><span id="addSolutionResult" class="text-error"></span>   </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+   
+  </div>
+</div>
+ 
+
+<div id="MyQuestions" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">我的曝光</h3>
+  </div>
+  <div class="modal-body">
+  
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" id="getMyQuestionsButton" onclick="getMyQuestions()">获取更多</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  
   </div>
 </div>
 
@@ -189,15 +281,31 @@
   </body>
   <script type="text/javascript">
    isLogin = false;
+   lQtime = 0;
+   tempQId=0;
+   myQTime=0;
+   firstTime=0;
    function searchQ() {
      		// body...
      		alert("ss");
      		return false;
      	}  	
 
+function regShow() {
+  // body...
+  $("#regShowModal").show();
+
+}
   function reg() {
   	// body...
-  	alert("reg");
+  	$.ajax({
+     type: "POST",
+     url: "/reg",
+     data: "userName="+$("#userName").val()+"&passWord="+$("#passWord").val()+"&realName="+$("#realName").val()+"&email="+$("#email").val()+"&phone="+$("#phone").val()+"&nick="+$("#nick").val(),
+     success: function(msg){
+     getUserInfo();
+   }
+});
   	return false;
   }
 
@@ -223,15 +331,49 @@ return false;
   function setUserInfo(user) {
   	// body...
   	isLogin=true;
-  	str = "<strong class=\"text-info\"><a href=\"#\">"+user.nick+"</a></strong>,欢迎你来曝光";
-  	alert(str);
+  	str = "<strong class=\"text-info\"><a href=\"#\" onclick=\"return getUserByU("+user.userName+")\">"+user.nick+"</a></strong>,欢迎你来曝光&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"return getMyQuestions()\">我的曝光</a>&nbsp;&nbsp;&nbsp;<a href=\"#\">关注(3)</a>";
+  	//alert(str);
   	$("#userInfoText").prepend(str);
   }
 
   function post() {
   	// body...
-  	if (isLogin) {alert("已经登录");} else{alert("没有登录");};
+  	if (isLogin) {
+     $("#postModal").modal("show");
+     
+     }else{alert("没有登录");};
   	return false;
+  }
+  function postDo() {
+    // body...
+    if (checkTitle()) {
+     
+     $.ajax({
+   type: "POST",
+   url: "/addQuestion",
+   data: "title="+$("#title").val()+"&context="+$("#context").val(),
+   success: function(msg){
+    alert("success post");
+    $("#postModal").modal('hide');
+   }
+});
+
+    } else{
+      alert("内容太少或者标题太长！");
+    };
+    return false;
+  }
+  function checkTitle() {
+    // body...
+    //alert($("#context").val().length);
+    
+    //alert($("#title").val().length);
+    //alert($("#context").val());
+    if ($("#title").val().length<=20&&$("#context").val().length>10) {
+      return true;
+    } else{
+      return false;
+    };
   }
   function  getUserInfo() {
   	// body...
@@ -247,10 +389,240 @@ return false;
    }
 });
   }
+  function getAQ() {
+    // body...
+    $.ajax({
+   type: "GET",
+   url: "/getAQ/30/6",
+   success: function(msg){
+     setHightQ(msg.modelMap.questions);
+   }
+   });
+  }
+  function setHightQ(questions) {
+    // body...
+    //$("#firstOneHight").append(questions[0].title); 
+    for (var i = 0; i < questions.length; i++) {
+       id = "dropdown1"+i;
+      str="<li><a href=\"#"+id+"\"  data-toggle=\"tab\">"+questions[i].title+"</a></li>";
+      $("#hightBaoguang").append(str);
+      str = "<div class=\"tab-pane fade\" id="+id+"><strong>#"+questions[i].title+"#&nbsp;&nbsp;&nbsp;<a href=\"#\">关注</a>["+questions[i].attention+"人]</strong><p>&nbsp;&nbsp;&nbsp;"+questions[i].context+"</p><p class=\"offset2\"><a href=\"#\" onclick=\"return getUserByU("+questions[i].userName+")\">"+questions[i].nick+"</a>&nbsp;&nbsp;&nbsp;"+datetime.relativeTime(questions[i].addTime)+"</p></div>";
+      $("#myTabContent").append(str);
+    };
+    $("#dropdown10").addClass("in");
+    $("#dropdown10").addClass("active");
+  }
+
+  function getUserByU(userName) {
+    // body...
+    $.ajax({
+   type: "GET",
+   url: "/getUserByU/"+userName,
+  // data: "userName="+userName,
+   success: function(msg){
+     $("#name").empty();
+     $("#email").empty();
+     $("#name").append(msg.modelMap.user.realName);
+     $("#email").append(msg.modelMap.user.email);
+     $("#UserModal").modal('show');
+   }
+});
+ return false;
+  }
+
+  function getLastQ() {
+  // body...
+  $.ajax({
+   type: "GET",
+   url: "/getLastQ/no/"+lQtime+"/2",
+   success: function(msg){
+   questions=msg.modelMap.questions;
+   if (questions.length!=0) {
+      
+     showLastQ(questions);
+     lQtime=questions[(questions.length-1)].addTime;
+     } else{
+          $("#getMoreLastQB").empty();
+          $("#getMoreLastQB").append("<strong>没有更多</strong>");
+     };
+   }
+});
+ return false;
+}
+ 
+ function showLastQ(questions) {
+   // body...
+   for (var i = 0; i < questions.length; i++) {
+     if (questions[i].context.length>100) {questions[i].context=questions[i].context.substr(0,100)+"................"};
+   };
+   for (var i = 0; i < questions.length; i++) {
+    str = "<h4>"+questions[i].title+"</h4><p>"+questions[i].context+"</p><strong class=\"text-error offset5\"><a href=\"#\" onclick=\"return getUserByU(\'"+questions[i].userName+"\')\">"+questions[i].nick+"</a>&nbsp;&nbsp;<strong>关注</strong>["+questions[i].attention+"]&nbsp;&nbsp;"+datetime.relativeTime(questions[i].addTime)+"&nbsp;&nbsp;<a href=\"#\" onclick=\"return getQByQ(\'"+questions[i].qId+"\')\">简略</a></strong><hr>";
+     $("#newBaoguang").append(str);
+   };
+  
+ }
+ function getQByQ(qId) {
+   // body...
+   $.ajax({
+   type: "GET",
+   url: "/getQByQ/"+qId,
+   success: function(msg){
+       tempQId = qId;
+       $("#addSolutionResult").empty();
+       $("#singleQTitle").empty();
+       $("#singleQContext").empty();
+       $("#singleQTitle").append(msg.modelMap.question.title);
+       str = "<p>"+msg.modelMap.question.context+"</p><span class=\"offset2 text-error\">"+msg.modelMap.question.nick+"&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.question.addTime)+"&nbsp;&nbsp;关注["+msg.modelMap.question.attention+"]&nbsp;&nbsp;<a href=\"#\" onclick=\"return updateA(\'"+msg.modelMap.question.qId+"\',\'"+msg.modelMap.question.attention+"\',this)\">我要关注</a></span>";
+       $("#singleQContext").append(str);
+       $("#showSingleQ").modal('show');
+   }
+});
+return false;
+ }
+
+ function updateA(qId,attention,e) {
+   // body...
+   //alert($(e).text());
+   //alert("yes");
+   $.ajax({
+   type: "POST",
+   url: "/updateA/"+qId+"/"+attention,
+   success: function(msg){
+   alert(msg.modelMap.result);
+     if (msg.modelMap.result==true) {
+       $(e).empty();
+       $(e).append("关注成功");
+     } else{
+       $(e).empty();
+       $(e).append("已关注过");
+     };
+   }
+});
+   return false;
+ }
+
+ 
+
   window.onload = function(){ 
     // 在这里写你的代码...
+    var myDate = new Date(); 
+    lQtime=myDate.getTime();
+    myQTime=lQtime;
+    firstTime=myQTime;
     getUserInfo();
+    getAQ();
+    getLastQ();
     
 }
+function getMyQuestions() {
+   // body...
+   
+   $.ajax({
+   type: "GET",
+   url: "/getMyQuestions/2/"+myQTime,
+   success: function(msg){
+     if (myQTime===firstTime) {
+      $("#MyQuestions").children(".modal-body").empty();};
+      if (msg.modelMap.questions.length===0) {
+         $("#getMyQuestionsButton").empty();
+         $("#getMyQuestionsButton").append("没有更多");
+      };
+       str = "";
+      for (var i = 0; i < msg.modelMap.questions.length; i++) {
+        str=str+"<strong>"+msg.modelMap.questions[i].title+"</strong>&nbsp;&nbsp;["+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"]&nbsp;&nbsp;<a href=\"/template/myQ.html\" target=\"_blank\">查看</a><hr>";
+      };
+      myQTime=msg.modelMap.questions[(i-1)].addTime;
+       $("#MyQuestions").children(".modal-body").append(str);
+   }
+});
+  
+   $("#MyQuestions").modal("show");
+ }
+
+
+function addSolution() {
+  // body...
+  if (isLogin) {
+   $.ajax({
+   type: "POST",
+   url: "/addSolution",
+   data: "qId="+tempQId+"&context="+$("#solutionContext").val(),
+   success: function(msg){
+     if (msg.modelMap.result==="yes") {
+       $("#addSolutionResult").empty();
+       $("#addSolutionResult").append("您的观点已经发表，网友们会看到的");
+     };
+   }
+});
+  } else{
+   alert("请先登录，再发表观点");
+  };
+}
+
+
+
+var datetime = (function() {
+  return {
+    relativeTime: function(millis) {
+      var now = new Date().getTime();
+      var offset = now - millis;
+
+      if (offset < 0) {
+        return "未来";
+      }
+      // 秒杀
+      var second = 1000;
+      if (offset < second * 10) {
+        return "刚刚~";
+      }
+      // xx秒前
+      var minute = 60 * second;
+      if (offset < minute) {
+        return Math.ceil(offset / second) + "秒前";
+      }
+      // xx分钟前
+      var hour = minute * 60;
+      if (offset < hour) {
+        return Math.ceil(offset / minute) + "分钟前";
+      }
+      // xx小时前
+      var day = hour * 24;
+      if (offset < day) {
+        return Math.ceil(offset / hour) + "小时前";
+      }
+      // xx天前，简单起见，每个月假设都为30天
+      var month = day * 30;
+      if (offset < month) {
+        return Math.ceil(offset / day) + "天前";
+      }
+      // xx月前
+      var year = month * 12;
+      if (offset < year) {
+        return Math.ceil(offset / month) + "个月前";
+      }
+      // xx年前
+      return Math.ceil(offset / year) + "年前";
+    },
+    format: function(pattern, timeMills) {
+      if (pattern === 'yyyy-MM-dd HH:mm:ss') {
+        var date = new Date(timeMills);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+        hour = hour < 10 ? '0' + hour : hour;
+        minute = minute < 10 ? '0' + minute : minute;
+        second = second < 10 ? '0' + second : second;
+
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+      }
+    }
+  }
+})(window);
   </script>
 </html>
