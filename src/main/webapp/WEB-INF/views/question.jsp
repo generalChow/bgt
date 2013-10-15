@@ -2,11 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>雨无声 &middot; 曝光台</title>
+    <title>Template &middot; Bootstrap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <!-- Le styles -->
     <link href="/template/assets/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
@@ -62,29 +61,9 @@
   </head>
 
   <body>
-  
-  <script src="/template/assets/js/jquery.js"></script>
+   ${qId}
+   <p>怎么回事呢？what happend?</p>
+   <script src="/template/assets/js/jquery.js"></script>
     <script src="/template/assets/js/bootstrap.min.js"></script>
   </body>
-  <script type="text/javascript">
-   function getQueryString(name) {//获取url中的参数
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-    }
-   function getQByQId() {
-   	// body...
-   	$.ajax({
-   type: "GET",
-   url: "/getQByQ/"+getQueryString("qId"),
-   success: function(msg){
-     alert( "Data Saved: " + msg );
-   }
-});
-   }
-
-    window.onload = function(){
-     getQByQId();
-    }
-  </script>
 </html>

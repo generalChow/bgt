@@ -74,5 +74,13 @@ public class QuestionController {
 		return model;
 	}
 	
+	@RequestMapping("/q/{qId}")
+	public ModelAndView getQuestionByQId(@PathVariable int qId,ModelAndView model){
+		model.setViewName("question");
+		model.addObject("qId",qId);
+		System.out.println("输出了");
+		return model;
+	}
+	
 	
 }
