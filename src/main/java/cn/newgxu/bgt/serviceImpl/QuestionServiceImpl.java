@@ -94,6 +94,15 @@ public class QuestionServiceImpl implements QuestionService{
 		User user = (User) SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER);
 		return questionMapper.getMyQuestions(user.getuId(), time, n);
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.newgxu.bgt.service.QuestionService#getMyQuestions(java.lang.String, int, int)
+	 */
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public List<QuestionModel> getMyQuestions(String time, int n, int uId) {
+		// TODO Auto-generated method stub
+		return questionMapper.getMyQuestions(uId, time, n);
+	}
 	
 	
 }

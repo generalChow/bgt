@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.newgxu.bgt.model.Question;
+import cn.newgxu.bgt.model.entity.QuestionModel;
 import cn.newgxu.bgt.service.QuestionService;
+import cn.newgxu.bgt.service.SolutionService;
 
 /**
  * @author 周大帅
@@ -24,7 +26,8 @@ public class QuestionController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Inject
 	private QuestionService questionService;
-	
+	@Inject
+	private SolutionService solutionService;
 	
 	@RequestMapping("/addQuestion")
 	@ResponseBody
@@ -74,11 +77,20 @@ public class QuestionController {
 		return model;
 	}
 	
-	@RequestMapping("/q/{qId}")
-	public ModelAndView getQuestionByQId(@PathVariable int qId,ModelAndView model){
-		model.setViewName("question");
-		model.addObject("qId",qId);
-		System.out.println("输出了");
+	@RequestMapping("/getQuestions/{n}/{time}/{uId}")
+	@ResponseBody
+	public ModelAndView getQuestionsByUId(@PathVariable int uId,@PathVariable int n,@PathVariable String time,ModelAndView model){
+		model.addObject("questions", questionService.getMyQuestions(time, n,uId));
+		return model;
+	}
+	
+	@RequestMapping("/q/{qId}/{time}/{n}")
+	@ResponseBody
+	public ModelAndView getQuestionByQId(@PathVariable String time,@PathVariable int n,@PathVariable int qId,ModelAndView model){
+	    QuestionModel question = questionService.getQByQId(qId);
+		model.addObject("question",question );
+		model.addObject("solutions",solutionService.getSolutionByQIdAndIndex(qId, time, n));
+		model.addObject("questions", questionService.getMyQuestions(time, n,question.getuId()));
 		return model;
 	}
 	

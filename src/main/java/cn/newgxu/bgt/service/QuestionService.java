@@ -19,4 +19,5 @@ public interface QuestionService {
 	public QuestionModel getQByQId(int qId);
 	public boolean updateA(int qId,int attention);
 	public List<QuestionModel> getMyQuestions(String time,int n);
+	public List<QuestionModel> getMyQuestions(String time,int n,int uId);
 }

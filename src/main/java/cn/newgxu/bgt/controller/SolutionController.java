@@ -40,7 +40,7 @@ public class SolutionController {
 	public ModelAndView getSolutionByQIN(@PathVariable int qId,
 			@PathVariable int n, @PathVariable String time, ModelAndView m) {
 		List<Solutioner> solutionList =	solutionService.getSolutionByQIdAndIndex(qId, time, n);
-		m.addObject("sulotionList", solutionList);
+		m.addObject("solutions", solutionList);
 		return m;
 	}
 }

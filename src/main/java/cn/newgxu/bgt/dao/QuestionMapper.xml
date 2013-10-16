@@ -34,7 +34,7 @@
 	<select id="getLastQ" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
 		select
 		qId,question.uId,title,context,addTime,solution,attention
-		,nick,userName
+		,nick,userName,email
 		from
 		question,user where solution =#{solution} and
 		question.addTime &lt;#{time} order by qId desc limit #{m}
@@ -43,7 +43,7 @@
 	<select id="getQByQId" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
 		select
 		qId,question.uId,title,context,addTime,solution,attention
-		,nick,userName
+		,nick,userName,email
 		from
 		question,user where qId = #{qId}
 	</select>
@@ -57,7 +57,7 @@
 		select aId from attention where qId=#{qId} and uId=#{uId}
 	</select>
 	<select id="getMyQuestions" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
-		select title,addTime,attention,qId from question where uId = #{uId} and addTime
+		select title,addTime,attention,qId,context from question where uId = #{uId} and addTime
 		&lt;#{time} order by qId desc limit #{n}
 	</select>
 	
