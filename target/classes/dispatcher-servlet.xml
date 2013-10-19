@@ -19,6 +19,10 @@
 	       <mvc:mapping path="/addSolution"/>
 	       <mvc:mapping path="/setQuestionGood/**"/>
 	       <mvc:mapping path="/updateA/**"/>
+	       <mvc:mapping path="/myQ/**"/>
+	       <mvc:mapping path="/updateQ/**"/>
+	       <mvc:mapping path="/aQ/**"/>
+	       <mvc:mapping path="/updateAFS/**"/>
 	       <bean class="cn.newgxu.bgt.interceptor.UserInterceptor"/>
 	    </mvc:interceptor>
 	</mvc:interceptors>

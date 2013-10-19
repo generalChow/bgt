@@ -44,6 +44,16 @@ public interface QuestionMapper {
 
 	public List<QuestionModel> getMyQuestions(@Param("uId") int uId,
 			@Param("time") String time, @Param("n") int n);
-	
-	
+
+	public void updateQByQId(@Param("qId") int qId,
+			@Param("context") String context);
+
+	public String getContextByQId(@Param("qId") int qId);
+
+	public void updateAttentionByQId(@Param("qId") int qId,
+			@Param("state") String state);
+
+	public List<QuestionModel> getMyAttentionQByUId(@Param("uId") int uId,
+			@Param("time") String time, @Param("state") String state,@Param("n") int n);
+
 }

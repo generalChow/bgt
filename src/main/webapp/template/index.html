@@ -272,6 +272,21 @@
   </div>
 </div>
 
+<div id="myAttentionQ" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">您关注的曝光，有更新啦</h3>
+  </div>
+  <div class="modal-body">
+    <div id="myAttentionQBody"></div>
+    <div><button class="btn btn-info" id="getMoreMYAQButton" onclick="getMyAQ()">获取更多</button></div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  
+  </div>
+</div>
+
 
     <!-- Le javascript
     ================================================== -->
@@ -280,11 +295,12 @@
     <script src="/template/assets/js/bootstrap.min.js"></script>
   </body>
   <script type="text/javascript">
-   isLogin = false;
-   lQtime = 0;
-   tempQId=0;
-   myQTime=0;
-   firstTime=0;
+   var isLogin = false;
+   var lQtime = 0;
+   var tempQId=0;
+   var myQTime=0;
+   var firstTime=0;
+   var myATime = 0;
    function searchQ() {
      		// body...
      		alert("ss");
@@ -331,7 +347,7 @@ return false;
   function setUserInfo(user) {
   	// body...
   	isLogin=true;
-  	str = "<strong class=\"text-info\"><a href=\"#\" onclick=\"return getUserByU("+user.userName+")\">"+user.nick+"</a></strong>,欢迎你来曝光&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"return getMyQuestions()\">我的曝光</a>&nbsp;&nbsp;&nbsp;<a href=\"#\">关注(3)</a>";
+  	str = "<strong class=\"text-info\"><a href=\"#\" onclick=\"return getUserByU("+user.userName+")\">"+user.nick+"</a></strong>,欢迎你来曝光&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"return getMyQuestions()\">我的曝光</a>&nbsp;&nbsp;&nbsp;<a href=\"#\" onclick=\"return getMyAQShow()\" id=\"myAQButton\">关注(3)</a>";
   	//alert(str);
   	$("#userInfoText").prepend(str);
   }
@@ -472,7 +488,7 @@ return false;
        $("#singleQTitle").empty();
        $("#singleQContext").empty();
        $("#singleQTitle").append(msg.modelMap.question.title);
-       str = "<p>"+msg.modelMap.question.context+"</p><span class=\"offset2 text-error\">"+msg.modelMap.question.nick+"&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.question.addTime)+"&nbsp;&nbsp;关注["+msg.modelMap.question.attention+"]&nbsp;&nbsp;<a href=\"#\" onclick=\"return updateA(\'"+msg.modelMap.question.qId+"\',\'"+msg.modelMap.question.attention+"\',this)\">我要关注</a></span>";
+       str = "<p>"+msg.modelMap.question.context+"</p><span class=\"offset2 text-error\">"+msg.modelMap.question.nick+"&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.question.addTime)+"&nbsp;&nbsp;关注["+msg.modelMap.question.attention+"]&nbsp;&nbsp;<a href=\"#\" onclick=\"return updateA(\'"+msg.modelMap.question.qId+"\',\'"+msg.modelMap.question.attention+"\',this)\">我要关注</a></span>&nbsp;&nbsp;<a href=\"/template/question.html?qId="+msg.modelMap.question.qId+"\" target=\"_blank\">查看</a>";
        $("#singleQContext").append(str);
        $("#showSingleQ").modal('show');
    }
@@ -508,12 +524,14 @@ return false;
     var myDate = new Date(); 
     lQtime=myDate.getTime();
     myQTime=lQtime;
+    myATime=myQTime;
     firstTime=myQTime;
     getUserInfo();
     getAQ();
     getLastQ();
     
 }
+
 function getMyQuestions() {
    // body...
    
@@ -529,7 +547,7 @@ function getMyQuestions() {
       };
        str = "";
       for (var i = 0; i < msg.modelMap.questions.length; i++) {
-        str=str+"<strong>"+msg.modelMap.questions[i].title+"</strong>&nbsp;&nbsp;["+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"]&nbsp;&nbsp;<a href=\"/template/myQ.html\" target=\"_blank\">查看</a><hr>";
+        str=str+"<strong>"+msg.modelMap.questions[i].title+"</strong>&nbsp;&nbsp;["+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"]&nbsp;&nbsp;<a href=\"/template/myQ.html?qId="+msg.modelMap.questions[i].qId+"\" target=\"_blank\">查看</a><hr>";
       };
       myQTime=msg.modelMap.questions[(i-1)].addTime;
        $("#MyQuestions").children(".modal-body").append(str);
@@ -558,8 +576,52 @@ function addSolution() {
    alert("请先登录，再发表观点");
   };
 }
+function getMyAQShow() {
+  // body...
+  $("#myAttentionQBody").empty();
+   myATime = firstTime;
+  getMyAQ();
+  return false;
+}
+function getMyAQ() {
+  // body...
+  $.ajax({
+   type: "GET",
+   url: "/aQ/update/5/"+myATime,
+   success: function(msg){
+     if (msg.modelMap.questions.length>0) {
+        var str = "";
+          for (var i = 0; i < msg.modelMap.questions.length; i++) {
+            if (msg.modelMap.questions[i].context.length>30) {
+              msg.modelMap.questions[i].context = msg.modelMap.questions[i].context.substr(0,30)+".........";
+            };
+            str = str +"<strong>"+msg.modelMap.questions[i].title+"</strong>:"+msg.modelMap.questions[i].context+"&nbsp;&nbsp;关注["+msg.modelMap.questions[i].attention+"人]&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"&nbsp;&nbsp;<a href=\"/template/question.html?qId="+msg.modelMap.questions[i].qId+"\" target=\"_blank\" onclick=\"return lookUpdate(\'"+msg.modelMap.questions[i].qId+"\')\">查看</a><hr>";
+          };
+          myATime = msg.modelMap.questions[(i-1)].addTime;
+          
+          $("#myAttentionQBody").append(str);
+          $("#myAttentionQ").modal('show');
+     } else{
+        $("#getMoreMYAQButton").empty();
+        $("#getMoreMYAQButton").append("没有更多");
+     };
+   
+   }
+});
+  return false;
+}
 
-
+function lookUpdate(qId) {
+  // body...
+  $.ajax({
+   type: "POST",
+   url: "/updateAFS/no/"+qId,
+   success: function(msg){
+    
+   }
+});
+  return true;
+}
 
 var datetime = (function() {
   return {

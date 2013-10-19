@@ -20,4 +20,7 @@ public interface QuestionService {
 	public boolean updateA(int qId,int attention);
 	public List<QuestionModel> getMyQuestions(String time,int n);
 	public List<QuestionModel> getMyQuestions(String time,int n,int uId);
+	public void updateQ(int qId,String newContext);
+	public List<QuestionModel> getQByStateAndUId(String time,int n,String state);
+	public void updateAForState(int qId,String state);
 }

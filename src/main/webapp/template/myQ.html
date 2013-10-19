@@ -69,7 +69,7 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="row">
       <div class="span3" style="background:white; ">
-      <h2>Ta的信息</h2>
+      <h2>个人简介</h2>
       <hr>
         <strong>账号</strong>:<span id="userName" class="text-info"></span><hr>
          <strong>昵称</strong>:<span id="nick" class="text-info"></span>
@@ -82,7 +82,7 @@
       	
       </div>
 <textarea rows="4" class="span5" id="solutionContext"></textarea></br>
-<button class="btn" onclick="addSolution()" >发表观点</button>
+<button class="btn" onclick="updateQ()" >更新</button>
 <hr>
 <div id="solution">
 
@@ -91,7 +91,7 @@
 <button class="btn btn-info" id="getSolutionButton" onclick="getMoreSolutions()">获取更多</button>
       </div>
       <div class="span2" style="background:white; ">
-       <h3>Ta的其他曝光</h3>
+       <h3>其他曝光</h3>
         <hr>
         <div id="otherQ">
         
@@ -117,6 +117,7 @@
   <script type="text/javascript">
    var myQTime = 0;
    var mySTime = 0;
+   var myAtime = 0;
    var qId = 0;
    var uId = 0;
    function getQueryString(name) {//获取url中的参数
@@ -129,7 +130,7 @@
    	qId = getQueryString("qId");
    	$.ajax({
    type: "GET",
-   url: "/q/"+qId+"/"+myQTime+"/"+"5",
+   url: "/myQ/"+qId+"/"+myQTime+"/"+"5",
    success: function(msg){
       handleFirst(msg);
    }
@@ -143,7 +144,7 @@
    	 	 if (msg.modelMap.questions[i].context.length>60) {
    	 	 	msg.modelMap.questions[i].context=msg.modelMap.questions[i].context.substr(0,60)+"..........";
    	 	 };
-   	 	 str = str+"<strong><a href=\"/template/question.html?qId="+msg.modelMap.questions[i].qId+"\">"+msg.modelMap.questions[i].title+"</a></strong>"+msg.modelMap.questions[i].context+"&nbsp;&nbsp;[关注"+msg.modelMap.questions[i].attention+"人]&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"<hr>";
+   	 	 str = str+"<strong><a href=\"/template/myQ.html?qId="+msg.modelMap.questions[i].qId+"\">"+msg.modelMap.questions[i].title+"</a></strong>"+msg.modelMap.questions[i].context+"&nbsp;&nbsp;[关注"+msg.modelMap.questions[i].attention+"人]&nbsp;&nbsp;"+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"<hr>";
    	 };
    	 if (msg.modelMap.questions.length>0) { myQTime=msg.modelMap.questions[(i-1)].addTime;};
    	
@@ -156,7 +157,7 @@
    	 $("#nick").append(msg.modelMap.question.nick);
    	 $("#email").append(msg.modelMap.question.email);
    	 uId = msg.modelMap.question.uId;
-   	 var str = "<h3>"+msg.modelMap.question.title+"</h3>关注["+msg.modelMap.question.attention+"人]&nbsp;&nbsp;&nbsp;<span class=\"text-error\">"+datetime.relativeTime(msg.modelMap.question.addTime)+"</span><hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+msg.modelMap.question.context;
+   	 var str = "<h3>"+msg.modelMap.question.title+"</h3>关注["+msg.modelMap.question.attention+"人]&nbsp;&nbsp;&nbsp;<span class=\"text-error\">"+datetime.relativeTime(msg.modelMap.question.addTime)+"</span><hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+msg.modelMap.question.context+"<hr>";
    	 $("#question").append(str);
    	 str = "";
    	 for (var i = 0; i < msg.modelMap.solutions.length; i++) {
@@ -182,6 +183,7 @@
      var myDate = new Date(); 
      myQTime = myDate.getTime();
      mySTime = myQTime;
+     myAtime = mySTime;
      getQByQId();
     }
   
@@ -222,20 +224,33 @@
    }
 });
     }
-    function addSolution() {
+    function updateQ() {
     	// body...
     	$.ajax({
       type: "POST",
-      url: "/addSolution",
-      data: "qId="+qId+"&context="+$("#solutionContext").val(),
+      url: "/updateQ/"+qId,
+      data: "newContext="+$("#solutionContext").val(),
      success: function(msg){
-     	var str = "<strong>您的观点：</strong>"+$("#solutionContext").val()+"[刚刚~]<hr>";
-        $("#solution").prepend(str);
+      if (msg.modelMap.result==="yes") {
+     	var str = "<strong><==============更新============></br></strong>"+$("#solutionContext").val()+"<hr>";
+        $("#question").append(str);
+        };
    },
     error: function () {
     	// body...
     	alert("可能是由于您没有登录的原因");
     }
+});
+    }
+
+    function  getMyAQ() {
+      // body...
+      $.ajax({
+   type: "GET",
+   url: "/aQ/update/5/"+myAtime,
+   success: function(msg){
+     alert( "Data Saved: " + msg.modelMap.questions.length );
+   }
 });
     }
     var datetime = (function() {
