@@ -149,4 +149,10 @@ public class QuestionController {
 		questionService.updateAForState(qId, state);
 	}
 
+	@RequestMapping("/searchQ/{n}/{time}")
+	@ResponseBody
+	public ModelAndView searchQ(@PathVariable String time,@PathVariable int n,String context,ModelAndView model){
+		model.addObject("questions", questionService.searchQ(context, n,time));
+		return model;
+	}
 }

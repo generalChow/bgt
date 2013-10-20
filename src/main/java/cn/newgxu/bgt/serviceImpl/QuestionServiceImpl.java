@@ -163,5 +163,9 @@ public class QuestionServiceImpl implements QuestionService {
 		User user = (User) SessionUtil.getAttributeFromSessionByKey(Constant.SESSION_USER);
 		questionMapper.updateAttentionByQId(qId, state);
 	}
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List<QuestionModel> searchQ(String context,int n,String time){
+		return questionMapper.searchQ(context, n,time);
+	}
 
 }

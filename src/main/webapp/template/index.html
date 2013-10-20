@@ -79,7 +79,7 @@
       <div class="jumbotron">
         <div class="input-append">
         <form action="/" onsubmit="return searchQ()">
-        <input class="span4" id="appendedInputButton" placeholder="搜索...." type="text">
+        <input class="span4" id="searchContext" placeholder="搜索...." type="text">
         </form>
         </div>
         <hr>
@@ -286,6 +286,20 @@
   
   </div>
 </div>
+<div id="searchModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">搜索结果(根据时间的远近排名)</h3>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <span id="searchButton" class="text-error"></span>
+    <button class="btn btn-info" onclick="searchQMore()" >获取更多</button>
+   
+  </div>
+</div>
 
 
     <!-- Le javascript
@@ -301,9 +315,40 @@
    var myQTime=0;
    var firstTime=0;
    var myATime = 0;
+   var searchTime = 0;
    function searchQ() {
+     // body...
+     searchTime = firstTime;
+     $("#searchModal").children(".modal-body").empty();
+     searchQMore();
+     return false;
+   }
+   function searchQMore() {
      		// body...
-     		alert("ss");
+     	$.ajax({
+   type: "GET",
+   url: "/searchQ/5/"+searchTime,
+   data: "context="+$("#searchContext").val(),
+   success: function(msg){
+    if (msg.modelMap.questions.length>0) {
+     var str = "";
+     for (var i = 0; i < msg.modelMap.questions.length; i++) {
+      if (msg.modelMap.questions[i].context.length>30) {
+        msg.modelMap.questions[i].context = msg.modelMap.questions[i].context.substr(0,30)+".......";
+      };
+        str = str +"<strong>"+msg.modelMap.questions[i].title+"</strong>:"+msg.modelMap.questions[i].context+"&nbsp;&nbsp;<span class=\"text-error\">关注["+msg.modelMap.questions[i].attention+"人]</span>&nbsp;&nbsp;<span class=\"text-warning\">"+datetime.relativeTime(msg.modelMap.questions[i].addTime)+"</span>&nbsp;&nbsp;<a href=\"/template/question.html?qId="+msg.modelMap.questions[i].qId+"\" target=\"_blank\">查看</a><hr>";
+     };
+     searchTime = msg.modelMap.questions[(i-1)].addTime;
+     $("#searchModal").children(".modal-body").append(str);
+     $("#searchButton").empty();
+     $("#searchModal").modal('show');
+     } else {
+      $("#searchButton").empty();
+      $("#searchButton").append("根据条件匹配不出更多结果");
+      $("#searchModal").modal('show');
+     }
+    }
+  });
      		return false;
      	}  	
 
@@ -420,9 +465,12 @@ return false;
     //$("#firstOneHight").append(questions[0].title); 
     for (var i = 0; i < questions.length; i++) {
        id = "dropdown1"+i;
+        if (questions[i].context.length>150) {
+        questions[i].context = questions[i].context.substr(0,150)+".......";
+      };
       str="<li><a href=\"#"+id+"\"  data-toggle=\"tab\">"+questions[i].title+"</a></li>";
       $("#hightBaoguang").append(str);
-      str = "<div class=\"tab-pane fade\" id="+id+"><strong>#"+questions[i].title+"#&nbsp;&nbsp;&nbsp;<a href=\"#\">关注</a>["+questions[i].attention+"人]</strong><p>&nbsp;&nbsp;&nbsp;"+questions[i].context+"</p><p class=\"offset2\"><a href=\"#\" onclick=\"return getUserByU("+questions[i].userName+")\">"+questions[i].nick+"</a>&nbsp;&nbsp;&nbsp;"+datetime.relativeTime(questions[i].addTime)+"</p></div>";
+      str = "<div class=\"tab-pane fade\" id="+id+"><strong>#"+questions[i].title+"#&nbsp;&nbsp;&nbsp;<a href=\"#\">关注</a>["+questions[i].attention+"人]</strong><p>&nbsp;&nbsp;&nbsp;"+questions[i].context+"</p><p class=\"offset2\"><a href=\"#\" onclick=\"return getUserByU("+questions[i].userName+")\">"+questions[i].nick+"</a>&nbsp;&nbsp;&nbsp;"+datetime.relativeTime(questions[i].addTime)+"&nbsp;&nbsp;<a href=\"/template/question.html?qId="+questions[i].qId+"\" target=\"_blank\">查看</a></p></div>";
       $("#myTabContent").append(str);
     };
     $("#dropdown10").addClass("in");

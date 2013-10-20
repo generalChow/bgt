@@ -23,4 +23,5 @@ public interface QuestionService {
 	public void updateQ(int qId,String newContext);
 	public List<QuestionModel> getQByStateAndUId(String time,int n,String state);
 	public void updateAForState(int qId,String state);
+	public List<QuestionModel> searchQ(String context,int n,String time);
 }

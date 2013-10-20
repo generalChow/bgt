@@ -87,4 +87,9 @@
 		qId from attention where uId=#{uId} and state = #{state}) and addTime
 		&lt; #{time} order by qId desc limit #{n}
 	</select>
+	<select id="searchQ" resultType="cn.newgxu.bgt.model.entity.QuestionModel">
+	  select
+		title,addTime,attention,qId,context from question where ( context like CONCAT('%',#{context},'%')
+		or title like CONCAT('%',#{context},'%') )and addTime &lt; #{time} order by qId desc limit #{n}
+	</select>
 </mapper>
